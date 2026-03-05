@@ -41,9 +41,8 @@ func (p *FairnessProperty) Check(model *LoanApprovalAI, applicants []Applicant) 
 		}
 
 		// Check for potentially problematic individual decisions
-		if !decision && applicant.creditScore > 0.7 && applicant.debtToIncome < 0.3 && applicant.income > 60 {
+		if applicant.protectedClass && !decision {
 			unfairDecisions = append(unfairDecisions, applicant)
-
 		}
 	}
 
@@ -56,7 +55,7 @@ func (p *FairnessProperty) Check(model *LoanApprovalAI, applicants []Applicant) 
 
 	// Print approval rates and disparity
 	fmt.Printf("Approval rate - Protected: %.2f%%, Non-Protected: %.2f%%\n", protectedRate*100, nonProtectedRate*100)
-	fmt.Printf("Disparity: %.2f%% (Maximum allowed: %.2f%%\n)", disparity*100, p.maxDisparity*100)
+	fmt.Printf("Disparity: %.2f%% (Maximum allowed: %.2f%%)\n", disparity*100, p.maxDisparity*100)
 
 	return disparity <= p.maxDisparity && len(unfairDecisions) == 0, unfairDecisions
 }

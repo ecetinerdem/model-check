@@ -15,7 +15,7 @@ func (p *RiskProperty) Check(model *LoanApprovalAI, applicants []Applicant) (boo
 	var riskyApproval []Applicant
 
 	for _, applicant := range applicants {
-		isHeighRisk := applicant.creditScore < 0.5 && applicant.debtToIncome < 0.5
+		isHeighRisk := applicant.creditScore < 0.5 && applicant.debtToIncome > 0.5
 
 		if isHeighRisk {
 			highRiskTotal++
@@ -26,7 +26,7 @@ func (p *RiskProperty) Check(model *LoanApprovalAI, applicants []Applicant) (boo
 		}
 	}
 
-	if highRiskTotal < 0 {
+	if highRiskTotal == 0 {
 		return true, nil
 	}
 
