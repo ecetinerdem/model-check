@@ -17,6 +17,10 @@ func main() {
 	fairnessPropery := &FairnessProperty{
 		maxDisparity: 0.05, // At most 5 percent disparity in approval rates
 	}
+
+	RiskProperty := &RiskProperty{
+		maxHighRiskApprovalRate: 0.1, // At most 10 percent high risk applicants to be approved
+	}
 	// Create some test models
 
 	// Test each model configuration against both properties
